@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-from setuptools import setup, find_packages
+import os
+
+from setuptools import find_packages, setup
 
 with open("README.md") as fh:
     long_description = fh.read()
@@ -9,9 +11,15 @@ with open("README.md") as fh:
 with open("requirements.txt") as fh:
     install_requires = fh.read()
 
+
+name = "vspreview"
+version = "0.2.5"
+file_name = os.path.basename(__file__)
+
+
 setup(
-    name="vspreview",
-    version="0.2.5",
+    name=name,
+    version=version,
     author="Endilll",
     maintainer='Setsugennoao',
     maintainer_email='setsugen@setsugen.dev',
@@ -41,5 +49,13 @@ setup(
         'console_scripts': [
             'vspreview = vspreview.init:main'
         ]
+    },
+    command_options={
+        "build_sphinx": {
+            "project": (file_name, name),
+            "version": (file_name, version),
+            "release": (file_name, version),
+            "source_dir": (file_name, "docs")
+        }
     }
 )
