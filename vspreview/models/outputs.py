@@ -6,6 +6,7 @@ import vapoursynth as vs
 from vsdfft import FFTSpectrum
 from PyQt5.QtCore import QAbstractListModel, QModelIndex, Qt
 
+from .viewmodes import getnative_graph
 from ..core import AbstractMainWindow, AudioOutput, QYAMLObject, VideoOutput, VideoOutputNode, main_window, try_load
 
 T = TypeVar('T', VideoOutput, AudioOutput)
@@ -134,6 +135,7 @@ class VideoOutputs(Outputs[VideoOutput]):
     vs_type = vs.VideoOutputTuple
 
     _fft_spectr_items: List[VideoOutput] = []
+    _descaling_help_items: List[VideoOutput] = []
 
     def copy_output_props(self, new: VideoOutput, old: VideoOutput) -> None:
         new.last_showed_frame = old.last_showed_frame
@@ -169,6 +171,18 @@ class VideoOutputs(Outputs[VideoOutput]):
                 self.copy_output_props(new, old)
 
         self.items = self._fft_spectr_items
+
+    def switchToDescalingHelper(self, force_cache: bool = False) -> None:
+        if not self._descaling_help_items or force_cache:
+            self._descaling_help_items = [
+                self.get_new_output(getnative_graph(old), old)
+                for old in self._items
+            ]
+        else:
+            for new, old in zip(self._descaling_help_items, self.items):
+                self.copy_output_props(new, old)
+
+        self.items = self._descaling_help_items
 
 
 class AudioOutputs(Outputs[AudioOutput]):

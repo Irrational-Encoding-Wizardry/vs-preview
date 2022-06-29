@@ -35,6 +35,7 @@ T = TypeVar('T')
 class ViewMode(str, Enum):
     NORMAL = 'Normal'
     FFTSPECTRUM = 'FFTSpectrum'
+    DESCALING_HELP = 'Descaling Helper'
 
 
 @dataclass
@@ -315,6 +316,8 @@ class AbstractMainWindow(ExtendedMainWindow, QAbstractYAMLObjectSingleton):
             self.outputs.switchToNormalView()
         elif new_viewmode == ViewMode.FFTSPECTRUM:
             self.outputs.switchToFFTSpectrumView(force_cache)
+        elif new_viewmode == ViewMode.DESCALING_HELP:
+            self.outputs.switchToDescalingHelper(force_cache)
         else:
             raise ValueError('Invalid ViewMode passed!')
 

@@ -153,6 +153,11 @@ class MiscToolbar(AbstractToolbar):
                 ViewMode.FFTSPECTRUM if self.main.current_viewmode != ViewMode.FFTSPECTRUM else ViewMode.NORMAL
             )
         )
+        self.main.add_shortcut(
+            Qt.SHIFT + Qt.Key_D, lambda: self.view_mode_combox.setCurrentText(
+                ViewMode.DESCALING_HELP if self.main.current_viewmode != ViewMode.DESCALING_HELP else ViewMode.NORMAL
+            )
+        )
 
     def copy_frame_to_clipboard(self) -> None:
         self.main.clipboard.setPixmap(

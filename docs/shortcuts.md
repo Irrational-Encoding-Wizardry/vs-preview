@@ -45,7 +45,8 @@
 | Ctrl + S  | Copy frame to clipboard                            |
 | Shift + S | Save frame to file                                 |
 | Alt + S   | Save storage (both local file and global settings) |
-| Shift + F | Switch FFTSpectrum view mode                       |
+| Shift + F | Switch to FFTSpectrum view mode                    |
+| Shift + D | Switch to descaling helper view mode               |
 
 
 
